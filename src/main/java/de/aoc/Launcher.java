@@ -23,7 +23,6 @@ public class Launcher {
     }
 
     private static void executeDay(Day day) {
-
         try {
             final Instant start = Instant.now();
             final long part1 = day.part1();
