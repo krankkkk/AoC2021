@@ -10,7 +10,8 @@ public class Day2 extends AbstractDay {
     public long part1(final Stream<String> stream) {
         final Ship ship = new Ship();
 
-        stream.forEachOrdered(ship::move);
+        stream.map(Command::parseCommand)
+                .forEachOrdered(ship::move);
 
         return ship.getResult();
     }
@@ -19,9 +20,17 @@ public class Day2 extends AbstractDay {
     public long part2(final Stream<String> stream) {
         final Ship ship = new Ship2();
 
-        stream.forEachOrdered(ship::move);
+        stream.map(Command::parseCommand)
+                .forEachOrdered(ship::move);
 
         return ship.getResult();
+    }
+
+    private record Command(String order, int steps) {
+        private static Command parseCommand(final String line) {
+            final String[] s = line.split("\\s");
+            return new Command(s[0], Integer.parseInt(s[1]));
+        }
     }
 
 
@@ -29,20 +38,18 @@ public class Day2 extends AbstractDay {
         protected long depth = 0;
         protected long pos = 0;
 
-        public void move(final String str) {
-            final String[] s = str.split("\\s");
-            final int count = Integer.parseInt(s[1]);
-            switch (s[0]) {
-                case "forward" -> this.pos += count;
-                case "down" -> this.depth -= count;
-                case "up" -> this.depth += count;
-                default -> throw new IllegalArgumentException(str);
+        public void move(final Command command) {
+            switch (command.order) {
+                case "forward" -> this.pos += command.steps;
+                case "down" -> this.depth += command.steps;
+                case "up" -> this.depth -= command.steps;
+                default -> throw new IllegalArgumentException(command.toString());
             }
         }
 
 
         public long getResult() {
-            return Math.abs(pos * depth);
+            return pos * depth;
         }
     }
 
@@ -50,17 +57,15 @@ public class Day2 extends AbstractDay {
         private long aim = 0;
 
         @Override
-        public void move(final String str) {
-            final String[] s = str.split("\\s");
-            final int count = Integer.parseInt(s[1]);
-            switch (s[0]) {
+        public void move(final Command command) {
+            switch (command.order) {
                 case "forward" -> {
-                    this.pos += count;
-                    this.depth += this.aim * count;
+                    this.pos += command.steps;
+                    this.depth += this.aim * command.steps;
                 }
-                case "down" -> this.aim += count;
-                case "up" -> this.aim -= count;
-                default -> throw new IllegalArgumentException(str);
+                case "down" -> this.aim += command.steps;
+                case "up" -> this.aim -= command.steps;
+                default -> throw new IllegalArgumentException(command.toString());
             }
         }
     }
