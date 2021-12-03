@@ -2,7 +2,6 @@ package de.aoc.days.day1;
 
 import de.aoc.days.AbstractDay;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -24,10 +23,9 @@ public class Day1 extends AbstractDay {
                 .map(Integer::parseInt)
                 .toList();
 
-        final List<Integer> windows = new LinkedList<>();
-        for (int i = 0; i < input.size() - 2; i++) {
-            windows.add(input.get(i) + input.get(i + 1) + input.get(i + 2));
-        }
+        final List<Integer> windows = IntStream.range(0, input.size() - 2)
+                .mapToObj(i -> input.get(i) + input.get(i + 1) + input.get(i + 2))
+                .toList();
         return count(windows);
     }
 
