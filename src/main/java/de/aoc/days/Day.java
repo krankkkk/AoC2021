@@ -6,11 +6,11 @@ public interface Day {
 
     long part1();
 
-    long part1(Stream<String> input);
+    long part1(Stream<String> stream);
 
     long part2();
 
-    long part2(Stream<String> strings);
+    long part2(Stream<String> stream);
 
     Stream<String> getDebugInput();
 
