@@ -59,12 +59,12 @@ public class Day3 extends AbstractDay {
         while (most.size() > 1 || least.size() > 1) {
             final int finalCurrentPos = currentPos;
             if (most.size() > 1) {
-                char mostCommon = getMostCommon(most, finalCurrentPos);
+                final char mostCommon = getMostCommon(most, finalCurrentPos);
                 most.removeIf(str -> str.charAt(finalCurrentPos) != mostCommon);
             }
 
             if (least.size() > 1) {
-                char leastCommon = getLeastCommon(least, finalCurrentPos);
+                final char leastCommon = getLeastCommon(least, finalCurrentPos);
                 least.removeIf(str -> str.charAt(finalCurrentPos) != leastCommon);
             }
 
