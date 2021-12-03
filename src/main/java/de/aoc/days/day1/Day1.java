@@ -4,6 +4,7 @@ import de.aoc.days.AbstractDay;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Day1 extends AbstractDay {
@@ -31,12 +32,8 @@ public class Day1 extends AbstractDay {
     }
 
     private long count(final List<Integer> windows) {
-        int bigger = 0;
-        for (int i = 0; i < windows.size() - 1; i++) {
-            if (windows.get(i) < windows.get(i + 1)) {
-                bigger++;
-            }
-        }
-        return bigger;
+        return IntStream.range(0, windows.size() - 1)
+                .filter(i -> windows.get(i) < windows.get(i + 1))
+                .count();
     }
 }
