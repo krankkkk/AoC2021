@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 public class Day4 extends AbstractDay {
     @Override
     public long part1(Stream<String> stream) {
-        List<String> input = stream.collect(Collectors.toList());
+        final List<String> input = stream.collect(Collectors.toList());
         final List<Integer> numbers = Arrays.stream(input.remove(0).split(","))
                 .map(Integer::parseInt)
                 .toList();
@@ -22,7 +22,7 @@ public class Day4 extends AbstractDay {
 
     @Override
     public long part2(Stream<String> stream) {
-        List<String> input = stream.collect(Collectors.toList());
+        final List<String> input = stream.collect(Collectors.toList());
         final List<Integer> numbers = Arrays.stream(input.remove(0).split(","))
                 .map(Integer::parseInt)
                 .toList();
@@ -33,7 +33,8 @@ public class Day4 extends AbstractDay {
     }
 
     private long calcWinner(Winner winner) {
-        int sum = winner.winningCard.stream()
+        int sum = winner.winningCard()
+                .stream()
                 .flatMap(Collection::stream)
                 .filter(Predicate.not(Number::isMarked))
                 .mapToInt(Number::getNumber)
@@ -44,14 +45,7 @@ public class Day4 extends AbstractDay {
     private Winner runNumbers(List<Integer> numbers, List<List<List<Number>>> cards) {
         for (final int drawnNumber : numbers) {
             for (final List<List<Number>> card : cards) {
-                Optional<Winner> maybeWinner = card.stream()
-                        .flatMap(Collection::stream)
-                        .filter(n -> n.number == drawnNumber)
-                        .findFirst()
-                        .map(Number::mark)
-                        .map(n -> checkForWinner(card, n))
-                        .map(win -> new Winner(win, drawnNumber));
-
+                Optional<Winner> maybeWinner = getWinner(drawnNumber, card);
                 if (maybeWinner.isPresent()) {
                     return maybeWinner.orElseThrow();
                 }
@@ -60,21 +54,12 @@ public class Day4 extends AbstractDay {
         return null;
     }
 
-
     private Winner runNumbers2(List<Integer> numbers, List<List<List<Number>>> cards) {
         for (final int drawnNumber : numbers) {
-            Iterator<List<List<Number>>> it = cards.iterator();
+            final Iterator<List<List<Number>>> it = cards.iterator();
             while (it.hasNext()) {
-                List<List<Number>> current = it.next();
-                Optional<Winner> maybeWinner = current
-                        .stream()
-                        .flatMap(Collection::stream)
-                        .filter(n -> n.number == drawnNumber)
-                        .findFirst()
-                        .map(Number::mark)
-                        .map(n -> checkForWinner(current, n))
-                        .map(win -> new Winner(win, drawnNumber));
-
+                final List<List<Number>> current = it.next();
+                final Optional<Winner> maybeWinner = getWinner(drawnNumber, current);
                 if (maybeWinner.isPresent()) {
                     if (cards.size() > 1) {
                         it.remove();
@@ -87,8 +72,19 @@ public class Day4 extends AbstractDay {
         return null;
     }
 
+    private Optional<Winner> getWinner(int drawnNumber, List<List<Number>> card) {
+        return card.stream()
+                .flatMap(Collection::stream)
+                .filter(n -> n.number == drawnNumber)
+                .findFirst()
+                .map(Number::mark)
+                .map(n -> checkForWinner(card, n))
+                .map(win -> new Winner(win, drawnNumber));
+    }
+
+
     private List<List<Number>> checkForWinner(List<List<Number>> card, Number n) {
-        List<Number> rowWithNumber = card.stream()
+        final List<Number> rowWithNumber = card.stream()
                 .filter(row -> row.contains(n))
                 .findFirst()
                 .orElseThrow();
@@ -104,7 +100,6 @@ public class Day4 extends AbstractDay {
         if (isWinningColumn) {
             return card;
         }
-
 
         return null;
     }
@@ -124,34 +119,4 @@ public class Day4 extends AbstractDay {
         cards.add(currentCard);
         return cards;
     }
-
-    private record Winner(List<List<Number>> winningCard, Integer lastNumber) {
-
-    }
-
-    private static class Number {
-        public final int number;
-        public boolean isMarked;
-
-        private Number(int number) {
-            this.number = number;
-            this.isMarked = false;
-        }
-
-        public Number mark() {
-            this.isMarked = true;
-            return this;
-        }
-
-        public boolean isMarked() {
-            return this.isMarked;
-        }
-
-        public int getNumber() {
-            return this.number;
-        }
-    }
-
 }
-
-
