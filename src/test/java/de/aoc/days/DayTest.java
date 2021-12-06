@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 public abstract class DayTest {
 
     protected final Day day;
-    protected final int part1Debug;
-    protected final int part2Debug;
-    protected final int part1Actual;
-    protected final int part2Actual;
+    protected final long part1Debug;
+    protected final long part2Debug;
+    protected final long part1Actual;
+    protected final long part2Actual;
 
-    protected DayTest(Day day, int part1Debug, int part2Debug, int part1Actual, int part2Actual) {
+    protected DayTest(Day day, long part1Debug, long part2Debug, long part1Actual, long part2Actual) {
         this.day = day;
         this.part1Debug = part1Debug;
         this.part2Debug = part2Debug;

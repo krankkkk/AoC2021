@@ -6,6 +6,7 @@ import de.aoc.days.day2.Day2;
 import de.aoc.days.day3.Day3;
 import de.aoc.days.day4.Day4;
 import de.aoc.days.day5.Day5;
+import de.aoc.days.day6.Day6;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -19,7 +20,7 @@ public class Launcher {
     public static void main(String[] args) {
         final ExecutorService service = Executors.newCachedThreadPool();
 
-        final Collection<Day> days = List.of(new Day1(), new Day2(), new Day3(), new Day4(), new Day5());
+        final Collection<Day> days = List.of(new Day1(), new Day2(), new Day3(), new Day4(), new Day5(), new Day6());
         for (Day day : days) {
             service.submit(() -> executeDay(day));
         }

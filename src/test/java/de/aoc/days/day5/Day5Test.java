@@ -1,6 +1,6 @@
-package de.aoc.days;
+package de.aoc.days.day5;
 
-import de.aoc.days.day5.Day5;
+import de.aoc.days.DayTest;
 
 public class Day5Test extends DayTest {
     public Day5Test() {
