@@ -1,6 +1,7 @@
 package de.aoc.days;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 public abstract class DayTest {
@@ -21,21 +22,29 @@ public abstract class DayTest {
 
     @Test
     void part1Debug() {
-        Assertions.assertEquals(this.part1Debug, day.part1(day.getDebugInput()));
+        final long actual = day.part1(day.getDebugInput());
+        Assumptions.assumeTrue(actual != -1);
+        Assertions.assertEquals(this.part1Debug, actual);
     }
 
     @Test
     void part1Actual() {
-        Assertions.assertEquals(this.part1Actual, day.part1(day.getActualInput()));
+        final long actual = day.part1(day.getActualInput());
+        Assumptions.assumeTrue(actual != -1);
+        Assertions.assertEquals(this.part1Actual, actual);
     }
 
     @Test
     void part2Debug() {
-        Assertions.assertEquals(this.part2Debug, day.part2(day.getDebugInput()));
+        final long actual = day.part2(day.getDebugInput());
+        Assumptions.assumeTrue(actual != -1);
+        Assertions.assertEquals(this.part2Debug, actual);
     }
 
     @Test
     void part2Actual() {
-        Assertions.assertEquals(this.part2Actual, day.part2(day.getActualInput()));
+        final long actual = day.part2(day.getActualInput());
+        Assumptions.assumeTrue(actual != -1);
+        Assertions.assertEquals(this.part2Actual, actual);
     }
 }

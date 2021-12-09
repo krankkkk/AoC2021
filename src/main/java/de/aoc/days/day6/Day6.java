@@ -19,6 +19,11 @@ public class Day6 extends AbstractDay {
         return iterate(stream, 80);
     }
 
+    @Override
+    public long part2(Stream<String> stream) {
+        return iterate(stream, 256);
+    }
+
     private long iterate(Stream<String> stream, final int iterateCount) {
         long[] fishPerDay = getArray(stream);
 
@@ -26,10 +31,10 @@ public class Day6 extends AbstractDay {
             final long[] newFish = new long[STATE_COUNT];
             for (int j = 0; j < fishPerDay.length; j++) {
                 if (j == 0) {
-                    newFish[6] = newFish[6] + fishPerDay[0];
+                    newFish[6] += fishPerDay[0];
                     newFish[8] = fishPerDay[0];
                 } else {
-                    newFish[j - 1] = newFish[j - 1] + fishPerDay[j];
+                    newFish[j - 1] += fishPerDay[j];
                 }
             }
 
@@ -49,10 +54,5 @@ public class Day6 extends AbstractDay {
         final long[] fishPerDay = new long[STATE_COUNT];
         map.forEach((k, v) -> fishPerDay[k] = v);
         return fishPerDay;
-    }
-
-    @Override
-    public long part2(Stream<String> stream) {
-        return iterate(stream, 256);
     }
 }
