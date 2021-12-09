@@ -3,7 +3,6 @@ package de.aoc.days.day9;
 import de.aoc.days.AbstractDay;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class Day9 extends AbstractDay {
@@ -23,10 +22,11 @@ public class Day9 extends AbstractDay {
 
         return getLowPoints(input)
                 .map(point -> toBasin(input, point))
-                .sorted()
+                .map(Basin::points)
+                .map(Collection::size)
+                .sorted((a, b) -> b - a)
                 .limit(3)
-                .collect(() -> new AtomicInteger(1), (aI, basin) -> aI.set(aI.get() * basin.points().size()), (aI1, aI2) -> aI1.set(aI1.get() * aI2.get()))
-                .get();
+                .reduce(1, (a, b) -> a * b);
     }
 
     private static Basin toBasin(final Point[][] map,
@@ -102,5 +102,11 @@ public class Day9 extends AbstractDay {
             }
         }
         return points;
+    }
+
+    private record Basin(Set<Point> points) {
+    }
+
+    private record Point(int y, int x, int dangerLevel) {
     }
 }
