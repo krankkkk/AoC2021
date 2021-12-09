@@ -2,7 +2,7 @@ package de.aoc.days.day9;
 
 import java.util.Set;
 
-public record Basin(Set<Point> points) implements Comparable<Basin> {
+record Basin(Set<Point> points) implements Comparable<Basin> {
 
     @Override
     public int compareTo(Basin o) {

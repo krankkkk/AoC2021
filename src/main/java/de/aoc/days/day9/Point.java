@@ -2,7 +2,7 @@ package de.aoc.days.day9;
 
 import java.util.Objects;
 
-public record Point(int y, int x, int dangerLevel) {
+record Point(int y, int x, int dangerLevel) {
 
     @Override
     public boolean equals(Object o) {
