@@ -24,9 +24,9 @@ public class Day9 extends AbstractDay {
                 .map(point -> toBasin(input, point))
                 .map(Basin::points)
                 .map(Collection::size)
-                .sorted((a, b) -> b - a)
+                .sorted(Comparator.reverseOrder())
                 .limit(3)
-                .reduce(1, (a, b) -> a * b);
+                .reduce(1, Math::multiplyExact);
     }
 
     private static Basin toBasin(final Point[][] map,
