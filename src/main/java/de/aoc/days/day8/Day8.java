@@ -100,10 +100,10 @@ public class Day8 extends AbstractDay {
     private void getKnownValues(String[] digits, String[] patterns) {
         for (String pattern : patterns) {
             switch (pattern.length()) {
-                case 2 -> digits[1] = pattern;
-                case 3 -> digits[7] = pattern;
-                case 4 -> digits[4] = pattern;
-                case 7 -> digits[8] = pattern;
+                case SEGMENTS_IN_ONE -> digits[1] = pattern;
+                case SEGMENTS_IN_FOUR -> digits[4] = pattern;
+                case SEGMENTS_IN_SEVEN -> digits[7] = pattern;
+                case SEGMENTS_IN_EIGHT -> digits[8] = pattern;
             }
         }
     }
