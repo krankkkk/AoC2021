@@ -2,6 +2,9 @@ package de.aoc;
 
 import de.aoc.days.Day;
 import de.aoc.days.day1.Day1;
+import de.aoc.days.day10.Day10;
+import de.aoc.days.day11.Day11;
+import de.aoc.days.day12.Day12;
 import de.aoc.days.day2.Day2;
 import de.aoc.days.day3.Day3;
 import de.aoc.days.day4.Day4;
@@ -24,7 +27,7 @@ public class Launcher {
         final ExecutorService service = Executors.newCachedThreadPool();
 
         final Collection<Day> days = List.of(new Day1(), new Day2(), new Day3(), new Day4(), new Day5(), new Day6(),
-                new Day7(), new Day8(), new Day9());
+                new Day7(), new Day8(), new Day9(), new Day10(), new Day11(), new Day12());
         for (Day day : days) {
             service.submit(() -> executeDay(day));
         }
